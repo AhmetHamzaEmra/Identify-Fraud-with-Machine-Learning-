@@ -34,11 +34,17 @@ for i in labels_test:
     if i ==1.0:
         counter+=1
 print(counter)
+
+
 from sklearn.tree import DecisionTreeClassifier
 clf=DecisionTreeClassifier()
 clf = clf.fit(features_train, labels_train)
 pred = clf.predict(features_test)
 print "score: "
 print  clf.score(features_test,labels_test)
+print pred
+print labels_test
 
-print float(25/29)
+for i in range(len(pred)):
+    if pred[i]!=labels_test[i]:
+        print pred[i],labels_test[i]
