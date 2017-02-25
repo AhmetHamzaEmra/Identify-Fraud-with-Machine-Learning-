@@ -74,6 +74,14 @@ def dict_to_list(key,normalizer):
         elif data_dict[i][key]>=0:
             new_list.append(float(data_dict[i][key])/float(data_dict[i][normalizer]))
     return new_list
+"""
+After cleaning the data from outliers I had to pick the most sensible features to use.
+First I picked 'from_poi_to_this_person' and 'from_this_person_to_poi' but there is was
+no strong pattern when I plotted the data so I used fractions for both
+features of “from/to poi messages” and “total from/to messages”.
+"""
+
+
 
 ### create two lists of new features
 fraction_from_poi_email=dict_to_list("from_poi_to_this_person","to_messages")
@@ -153,9 +161,19 @@ indices = np.argsort(importances)[::-1]
 #print 'Feature Ranking: '
 #for i in range(16):
 #    print "{} feature {} ({})".format(i+1,features_list[i+1],importances[indices[i]])
+"""
+Finally I picked 10 features which are:
+["salary", "bonus", "fraction_from_poi_email", "fraction_to_poi_email", 'deferral_payments',
+ 'total_payments', 'loan_advances', 'restricted_stock_deferred', 'deferred_income', 'total_stock_value']
+Accuracy for this feature set is around 0.8.
 
-
-
+But with these features my precision and recall were too low (less than 0.3) so I had to change
+my strategy and manually pick features which gave me precision and recall values over 0.3.
+In this dataset I cannot use accuracy for evaluating my algorithm because there a few POI’s
+in dataset and the best evaluator are precision and recall. There were only 18 examples of POIs
+in the dataset. There were 35 people who were POIs in “real life”, but
+for various reasons, half of those are not present in this dataset.
+"""
 ### try Naive Bayes for prediction
 #t0 = time()
 
@@ -166,6 +184,11 @@ indices = np.argsort(importances)[::-1]
 #print accuracy
 
 #print "NB algorithm time:", round(time()-t0, 3), "s"
+
+
+
+
+
 
 
 ### use manual tuning parameter min_samples_split
@@ -187,6 +210,28 @@ print 'precision = ', precision_score(labels_test,pred)
 # function for calculation ratio of true positives
 # out of true positives and false negatives
 print 'recall = ', recall_score(labels_test,pred)
+
+
+"""
+Firstly I tried Naive Bayes accuracy was lower than with Decision Tree Algorithm
+(0.83 and 0.9 respectively). I made a conclusion that that the feature set I used does
+not suit the distributional and interactive assumptions of Naive Bayes well enough. I
+selected Decision Tree Algorithm for the POI identifier. It gave me accuracy before tuning
+parameters = 0.9. No feature scaling was deployed, as it’s not necessary when using a decision
+tree. After selecting features and algorithm I manually tuned parameter min_samples_split.
+
+min_samples_split    precision    recall
+      2                0.67        0.8
+      3                0.57        0.8
+      4                0.57        0.8
+      5                0.8         0.8
+      6                0.8         0.8
+      7                0.67        0.8
+   average             0.68        0.8
+   
+It turned out that the best values for min_samples_split are 5 and 6.
+"""
+
 
 
 ### dump your classifier, dataset and features_list so
