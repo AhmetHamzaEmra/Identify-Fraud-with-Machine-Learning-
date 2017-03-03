@@ -75,6 +75,7 @@ def dict_to_list(key,normalizer):
         elif data_dict[i][key]>=0:
             new_list.append(float(data_dict[i][key])/float(data_dict[i][normalizer]))
     return new_list
+<<<<<<< HEAD
 """
 After cleaning the data from outliers I had to pick the most sensible features to use.
 First I picked 'from_poi_to_this_person' and 'from_this_person_to_poi' but there is was
@@ -83,6 +84,8 @@ features of �from/to poi messages� and �total from/to messages�.
 """
 
 
+=======
+>>>>>>> parent of da14f28... commends
 
 ### create two lists of new features
 fraction_from_poi_email=dict_to_list("from_poi_to_this_person","to_messages")
@@ -162,6 +165,7 @@ indices = np.argsort(importances)[::-1]
 #print 'Feature Ranking: '
 #for i in range(16):
 #    print "{} feature {} ({})".format(i+1,features_list[i+1],importances[indices[i]])
+<<<<<<< HEAD
 """
 Finally I picked 10 features which are:
 ["salary", "bonus", "fraction_from_poi_email", "fraction_to_poi_email", 'deferral_payments',
@@ -175,6 +179,11 @@ in dataset and the best evaluator are precision and recall. There were only 18 e
 in the dataset. There were 35 people who were POIs in �real life�, but
 for various reasons, half of those are not present in this dataset.
 """
+=======
+
+
+
+>>>>>>> parent of da14f28... commends
 ### try Naive Bayes for prediction
 #t0 = time()
 
@@ -193,6 +202,7 @@ fdata = featureFormat(my_dataset, features_list)
 labels, features = targetFeatureSplit(data)
 features_train, features_test, labels_train, labels_test = cross_validation.train_test_split(features, labels, test_size=0.1, random_state=42)
 
+<<<<<<< HEAD
 clf = DecisionTreeClassifier(min_samples_split=5)
 clf = clf.fit(features_train,labels_train)
 pred= clf.predict(features_test)
@@ -219,6 +229,8 @@ print( 'precision = ', precision_score(labels_test,pred))
 print( 'recall = ', recall_score(labels_test,pred))
 
 
+=======
+>>>>>>> parent of da14f28... commends
 ### use manual tuning parameter min_samples_split
 t0 = time()
 clf = DecisionTreeClassifier(min_samples_split=5)
@@ -240,6 +252,7 @@ print( 'precision = ', precision_score(labels_test,pred))
 print( 'recall = ', recall_score(labels_test,pred))
 
 
+<<<<<<< HEAD
 """
 Firstly I tried Naive Bayes accuracy was lower than with Decision Tree Algorithm
 (0.83 and 0.9 respectively). I made a conclusion that that the feature set I used does
@@ -262,6 +275,8 @@ It turned out that the best values for min_samples_split are 5 and 6.
 
 
 
+=======
+>>>>>>> parent of da14f28... commends
 ### dump your classifier, dataset and features_list so
 ### anyone can run/check your results
 pickle.dump(clf, open("my_classifier.pkl", "w") )
