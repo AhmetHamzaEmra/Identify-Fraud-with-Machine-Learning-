@@ -1,5 +1,5 @@
 #!/usr/bin/python
-
+import os
 import matplotlib.pyplot as plt
 import sys
 import pickle
@@ -10,8 +10,9 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import precision_score
 from sklearn.metrics import recall_score
 from sklearn.grid_search import GridSearchCV
-sys.path.append("../tools/")
 
+sys.path.append("../tools/")
+os.chdir("../tools/")
 
 from feature_format import featureFormat
 from feature_format import targetFeatureSplit
@@ -78,7 +79,7 @@ def dict_to_list(key,normalizer):
 After cleaning the data from outliers I had to pick the most sensible features to use.
 First I picked 'from_poi_to_this_person' and 'from_this_person_to_poi' but there is was
 no strong pattern when I plotted the data so I used fractions for both
-features of “from/to poi messages” and “total from/to messages”.
+features of ï¿½from/to poi messagesï¿½ and ï¿½total from/to messagesï¿½.
 """
 
 
@@ -97,7 +98,7 @@ for i in data_dict:
 
 ### store to my_dataset for easy export below
 my_dataset = data_dict
-
+print (my_dataset.head())
 
 ### these two lines extract the features specified in features_list
 ### and extract them from data_dict, returning a numpy array
@@ -149,9 +150,9 @@ t0 = time()
 clf = DecisionTreeClassifier()
 clf.fit(features_train,labels_train)
 score = clf.score(features_test,labels_test)
-print 'accuracy before tuning ', score
+print ('accuracy before tuning ', score)
 
-print "Decision tree algorithm time:", round(time()-t0, 3), "s"
+print( "Decision tree algorithm time:", round(time()-t0, 3), "s")
 
 
 
@@ -169,9 +170,9 @@ Accuracy for this feature set is around 0.8.
 
 But with these features my precision and recall were too low (less than 0.3) so I had to change
 my strategy and manually pick features which gave me precision and recall values over 0.3.
-In this dataset I cannot use accuracy for evaluating my algorithm because there a few POI’s
+In this dataset I cannot use accuracy for evaluating my algorithm because there a few POIï¿½s
 in dataset and the best evaluator are precision and recall. There were only 18 examples of POIs
-in the dataset. There were 35 people who were POIs in “real life”, but
+in the dataset. There were 35 people who were POIs in ï¿½real lifeï¿½, but
 for various reasons, half of those are not present in this dataset.
 """
 ### try Naive Bayes for prediction
@@ -185,10 +186,37 @@ for various reasons, half of those are not present in this dataset.
 
 #print "NB algorithm time:", round(time()-t0, 3), "s"
 
+print("checking new features ")
+print("with new features")
+fdata=data
+fdata = featureFormat(my_dataset, features_list)
+labels, features = targetFeatureSplit(data)
+features_train, features_test, labels_train, labels_test = cross_validation.train_test_split(features, labels, test_size=0.1, random_state=42)
 
+clf = DecisionTreeClassifier(min_samples_split=5)
+clf = clf.fit(features_train,labels_train)
+pred= clf.predict(features_test)
+acc=accuracy_score(labels_test, pred)
+print ("Validating algorithm:")
+print ("accuracy after tuning = ", acc)
+print( 'precision = ', precision_score(labels_test,pred))
+print( 'recall = ', recall_score(labels_test,pred))
+print("without new features")
 
+without_new=features_list-["from_poi_to_this_person","from_this_person_to_poi"]
 
+fdata = featureFormat(my_dataset, without_new)
+labels, features = targetFeatureSplit(data)
+features_train, features_test, labels_train, labels_test = cross_validation.train_test_split(features, labels, test_size=0.1, random_state=42)
 
+clf = DecisionTreeClassifier(min_samples_split=5)
+clf = clf.fit(features_train,labels_train)
+pred= clf.predict(features_test)
+acc=accuracy_score(labels_test, pred)
+print ("Validating algorithm:")
+print ("accuracy after tuning = ", acc)
+print( 'precision = ', precision_score(labels_test,pred))
+print( 'recall = ', recall_score(labels_test,pred))
 
 
 ### use manual tuning parameter min_samples_split
@@ -200,16 +228,16 @@ print("done in %0.3fs" % (time() - t0))
 
 acc=accuracy_score(labels_test, pred)
 
-print "Validating algorithm:"
-print "accuracy after tuning = ", acc
+print ("Validating algorithm:")
+print ("accuracy after tuning = ", acc)
 
 # function for calculation ratio of true positives
 # out of all positives (true + false)
-print 'precision = ', precision_score(labels_test,pred)
+print( 'precision = ', precision_score(labels_test,pred))
 
 # function for calculation ratio of true positives
 # out of true positives and false negatives
-print 'recall = ', recall_score(labels_test,pred)
+print( 'recall = ', recall_score(labels_test,pred))
 
 
 """
@@ -217,7 +245,7 @@ Firstly I tried Naive Bayes accuracy was lower than with Decision Tree Algorithm
 (0.83 and 0.9 respectively). I made a conclusion that that the feature set I used does
 not suit the distributional and interactive assumptions of Naive Bayes well enough. I
 selected Decision Tree Algorithm for the POI identifier. It gave me accuracy before tuning
-parameters = 0.9. No feature scaling was deployed, as it’s not necessary when using a decision
+parameters = 0.9. No feature scaling was deployed, as itï¿½s not necessary when using a decision
 tree. After selecting features and algorithm I manually tuned parameter min_samples_split.
 
 min_samples_split    precision    recall
@@ -228,7 +256,7 @@ min_samples_split    precision    recall
       6                0.8         0.8
       7                0.67        0.8
    average             0.68        0.8
-   
+
 It turned out that the best values for min_samples_split are 5 and 6.
 """
 
