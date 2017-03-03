@@ -76,6 +76,7 @@ def dict_to_list(key,normalizer):
             new_list.append(float(data_dict[i][key])/float(data_dict[i][normalizer]))
     return new_list
 <<<<<<< HEAD
+<<<<<<< HEAD
 """
 After cleaning the data from outliers I had to pick the most sensible features to use.
 First I picked 'from_poi_to_this_person' and 'from_this_person_to_poi' but there is was
@@ -84,6 +85,8 @@ features of �from/to poi messages� and �total from/to messages�.
 """
 
 
+=======
+>>>>>>> parent of da14f28... commends
 =======
 >>>>>>> parent of da14f28... commends
 
@@ -166,6 +169,7 @@ indices = np.argsort(importances)[::-1]
 #for i in range(16):
 #    print "{} feature {} ({})".format(i+1,features_list[i+1],importances[indices[i]])
 <<<<<<< HEAD
+<<<<<<< HEAD
 """
 Finally I picked 10 features which are:
 ["salary", "bonus", "fraction_from_poi_email", "fraction_to_poi_email", 'deferral_payments',
@@ -179,6 +183,11 @@ in dataset and the best evaluator are precision and recall. There were only 18 e
 in the dataset. There were 35 people who were POIs in �real life�, but
 for various reasons, half of those are not present in this dataset.
 """
+=======
+
+
+
+>>>>>>> parent of da14f28... commends
 =======
 
 
@@ -202,6 +211,7 @@ fdata = featureFormat(my_dataset, features_list)
 labels, features = targetFeatureSplit(data)
 features_train, features_test, labels_train, labels_test = cross_validation.train_test_split(features, labels, test_size=0.1, random_state=42)
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 clf = DecisionTreeClassifier(min_samples_split=5)
 clf = clf.fit(features_train,labels_train)
@@ -231,6 +241,8 @@ print( 'recall = ', recall_score(labels_test,pred))
 
 =======
 >>>>>>> parent of da14f28... commends
+=======
+>>>>>>> parent of da14f28... commends
 ### use manual tuning parameter min_samples_split
 t0 = time()
 clf = DecisionTreeClassifier(min_samples_split=5)
@@ -252,6 +264,7 @@ print( 'precision = ', precision_score(labels_test,pred))
 print( 'recall = ', recall_score(labels_test,pred))
 
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 """
 Firstly I tried Naive Bayes accuracy was lower than with Decision Tree Algorithm
@@ -275,6 +288,8 @@ It turned out that the best values for min_samples_split are 5 and 6.
 
 
 
+=======
+>>>>>>> parent of da14f28... commends
 =======
 >>>>>>> parent of da14f28... commends
 ### dump your classifier, dataset and features_list so
