@@ -169,7 +169,7 @@ indices = np.argsort(importances)[::-1]
 
 # But with these features my precision and recall were too low (less than 0.3) so I had to change
 # my strategy and manually pick features which gave me precision and recall values over 0.3.
-# In this dataset I cannot use accuracy for evaluating my algorithm because there a few POI�s
+# In this dataset I cannot use accuracy for evaluating my algorithm because there a few POI's
 # in dataset and the best evaluator are precision and recall. There were only 18 examples of POIs
 # in the dataset. There were 35 people who were POIs in "real life", but
 # for various reasons, half of those are not present in this dataset.
