@@ -171,7 +171,7 @@ indices = np.argsort(importances)[::-1]
 # my strategy and manually pick features which gave me precision and recall values over 0.3.
 # In this dataset I cannot use accuracy for evaluating my algorithm because there a few POI�s
 # in dataset and the best evaluator are precision and recall. There were only 18 examples of POIs
-# in the dataset. There were 35 people who were POIs in �real life�, but
+# in the dataset. There were 35 people who were POIs in "real life", but
 # for various reasons, half of those are not present in this dataset.
 
 ### try Naive Bayes for prediction
@@ -249,7 +249,7 @@ print( 'recall = ', recall_score(labels_test,pred))
 # (0.83 and 0.9 respectively). I made a conclusion that that the feature set I used does
 # not suit the distributional and interactive assumptions of Naive Bayes well enough. I
 # selected Decision Tree Algorithm for the POI identifier. It gave me accuracy before tuning
-# parameters = 0.9. No feature scaling was deployed, as it�s not necessary when using a decision
+# parameters = 0.9. No feature scaling was deployed, as it's not necessary when using a decision
 # tree. After selecting features and algorithm I manually tuned parameter min_samples_split.
 
 # min_samples_split    precision    recall
