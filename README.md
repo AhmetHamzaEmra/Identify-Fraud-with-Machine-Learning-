@@ -35,7 +35,4 @@ This was just a starting point analysis for classifying Enron employees. The res
 
 ## How to run the code
 
-To run the code, make sure you are located in the folder `final_project`. Then just run the following command:
-```{Shell}
-python final_project.py
-```
+To run the code, make sure you are located in the folder `final_project`.
