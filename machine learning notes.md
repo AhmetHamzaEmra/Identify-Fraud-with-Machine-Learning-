@@ -4,17 +4,19 @@ X_Train = Training Data
 Y_Train = Training Labels
 X_Test = Testing Data
 Y_Test = Testing Labels
+clf= classifier
+
 
 # Regression
 
 ### linear regression 
-
+```(python)
 from sklearn.linear_model import LinearRegression
 
 clf=LinearRegression()
 clf.fit(X_train, Y_train)
 clf.predict(X_test)
-
+```
 
 ### Polynomial Regression
 
