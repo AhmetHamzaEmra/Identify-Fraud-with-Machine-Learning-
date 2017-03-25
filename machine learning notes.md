@@ -55,7 +55,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.pipeline import Pipeline
 from sklearn.naive_bayes import MultinomialNB
 
-pipeline=Pipeline([('vectorixer', CountVectorizer(stop_words="english")), ("classifier", MultinomialNB())])
+pipeline=Pipeline([('vectorizer', CountVectorizer(stop_words="english")), ("classifier", MultinomialNB())])
 pipeline.fit(X_train, Y_train)
 pipeline.predict(X_test)
 ```
@@ -97,7 +97,7 @@ X_test_counts = count_vect.transform(X_test)
 X_test_tfidf = tfidf_transformer.transform(X_test_counts)
 clf = BernoulliNB(alpha = .3)
 clf.fit(X_train_tfidf, Y_train)
-clf.predict(X_new_tfidf)
+clf.predict(X_test_tfidf)
 ```
 
 # reading data!
